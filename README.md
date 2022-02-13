@@ -2,7 +2,7 @@
 This is an app for search a movie using mock data.
 
 ## Installation
- This is an Android Studio Project. You just clone the repo; next open in your IDE and run!
+ This is an Android Studio Project. You just clone the repo, open it in your IDE and run it!
 
 ## Compatibility
 This app was created with minimum API Level 21.
