@@ -1,4 +1,4 @@
-# MercadoLibre Demo App
+# Movie Search Demo App
 This is an app for search a movie using mock data.
 
 ## Installation
