@@ -1,4 +1,4 @@
-package com.example.moviessearchapp.utils
+package com.example.moviessearchapp.commons
 
 import android.content.Context
 import com.example.moviessearchapp.R
