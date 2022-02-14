@@ -2,24 +2,34 @@ package com.example.moviessearchapp.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviessearchapp.R
-import java.net.URLEncoder
+import com.example.moviessearchapp.ui.search.SearchAdapter
+import com.example.moviessearchapp.ui.search.SearchViewModel
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), SearchViewModel.OnSearchResponse {
+    private lateinit var viewModel: SearchViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        viewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
+        viewModel.setOnSearchResponse(this)
+
         val iEmptyList: View = findViewById(R.id.iEmptyList)
         val rvMovies: RecyclerView = findViewById(R.id.rvMovies)
+        val adapter = SearchAdapter(emptyList())
+        rvMovies.adapter = adapter
         rvMovies.layoutManager = LinearLayoutManager(this)
         rvMovies.setHasFixedSize(true)
 
@@ -32,12 +42,35 @@ class HomeActivity : AppCompatActivity() {
                     iEmptyList.visibility = View.GONE
                     pbSearching.visibility = View.VISIBLE
 
-                    // TODO call viewmodel search
+                    viewModel.searchMovie(etSearchMovie.text.toString())
                 } else {
                     Toast.makeText(this, "You must to enter more than 2 characters", Toast.LENGTH_SHORT).show()
                 }
             }
             false
         }
+
+        viewModel.movies.observe(this) {
+            adapter.setData(it)
+
+            if (it.isEmpty()) {
+                iEmptyList.visibility = View.VISIBLE
+                rvMovies.visibility = View.GONE
+            } else {
+                iEmptyList.visibility = View.GONE
+                rvMovies.visibility = View.VISIBLE
+            }
+
+            pbSearching.visibility = View.GONE
+        }
+    }
+
+    override fun onSearchError(message: String?) {
+        Log.d(localClassName, "Error: $message")
+        Toast.makeText(
+            this,
+            "Error: $message",
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }
