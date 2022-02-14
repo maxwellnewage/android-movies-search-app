@@ -4,10 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/bg_search_bar.xml" value="0.209" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.184" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17604166666666668" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_product_empty.xml" value="0.29891304347826086" />
         <entry key="app/src/main/res/layout/item_product_search.xml" value="0.67" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.184" />
       </map>
     </option>
   </component>
