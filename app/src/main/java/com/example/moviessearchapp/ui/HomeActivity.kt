@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,8 @@ import com.example.moviessearchapp.ui.search.SearchViewModel
 
 class HomeActivity : AppCompatActivity(), SearchViewModel.OnSearchResponse {
     private lateinit var viewModel: SearchViewModel
+    private val tvMovieResult: TextView by lazy { findViewById(R.id.tvMovieResult) }
+    private val tvMovieInstructions: TextView by lazy { findViewById(R.id.tvMovieInstructions) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,10 +70,7 @@ class HomeActivity : AppCompatActivity(), SearchViewModel.OnSearchResponse {
 
     override fun onSearchError(message: String?) {
         Log.d(localClassName, "Error: $message")
-        Toast.makeText(
-            this,
-            "Error: $message",
-            Toast.LENGTH_SHORT
-        ).show()
+        tvMovieResult.text = message
+        tvMovieInstructions.visibility = View.GONE
     }
 }
